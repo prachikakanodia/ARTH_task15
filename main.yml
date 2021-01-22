@@ -1,4 +1,22 @@
 ---
+# tasks file for loadbalancer
+- name: "Installing Loadbalancer Server"
+  yum:
+      name: haproxy
+      state: present
+
+- name: "Configuring Reverse Proxy"
+  template:
+      src: files/haproxy.cfg.j2
+      dest: "/etc/haproxy/haproxy.cfg"
+
+- name: "Starting Loadbalancer Service"
+  service:
+      name: "haproxy"
+      state: "restarted"
+  
+
+---
 # tasks file for webserver
 - name: "Installing HTTPD Webserver (Apache Server)"
   yum:  
