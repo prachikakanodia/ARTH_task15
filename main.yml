@@ -9,11 +9,13 @@
   template:
       src: files/haproxy.cfg.j2
       dest: "/etc/haproxy/haproxy.cfg"
+  register: configuring
 
 - name: "Starting Loadbalancer Service"
   service:
       name: "haproxy"
       state: "restarted"
+  when: configuring.changed
   
 
 ---
@@ -39,4 +41,5 @@
      name: httpd
      state: "restarted"
   when: copying.changed
+
 
