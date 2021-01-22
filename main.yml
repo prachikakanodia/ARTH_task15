@@ -1,0 +1,24 @@
+---
+# tasks file for webserver
+- name: "Installing HTTPD Webserver (Apache Server)"
+  yum:  
+     name: httpd
+     state: present
+
+- name: "Installing PHP Server"
+  yum:
+     name: php
+     state: present
+
+- name: "Copying File"
+  template:
+     src: files/index.php
+     dest: "/var/www/html/index.php"
+  register: copying
+
+- name: "Starting HTTPD Server"
+  service:
+     name: httpd
+     state: "restarted"
+  when: copying.changed
+

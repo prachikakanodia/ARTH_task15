@@ -1,0 +1,11 @@
+- name: Installing Apache Webserver
+  hosts: myweb
+
+  roles:
+         - webserver
+
+- name: Configuring Load Balancer
+  hosts: mylb
+
+  roles:
+         - loadbalancer
